@@ -272,14 +272,14 @@ abstract class DriverTest extends TestCase {
                 $args[] = function ($watcherId, $arg, int $data) use ($loop, &$invoked, $expectedData) {
                     $invoked = true;
                     $this->assertSame((int) $expectedData, $data);
-                    $loop->unreference($watcherId);
+                    $loop->cancel($watcherId);
                 };
             } else {
                 $args[] = function ($watcherId, int $data) use ($loop, &$invoked, $expectedData, $type) {
                     $invoked = true;
                     $this->assertSame((int) $expectedData, $data);
                     if ($type == "repeat") {
-                        $loop->unreference($watcherId);
+                        $loop->cancel($watcherId);
                     }
                 };
             }
