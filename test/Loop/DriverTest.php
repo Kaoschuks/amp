@@ -240,7 +240,7 @@ abstract class DriverTest extends TestCase {
             }]],
             ["onWritable", [\STDOUT, function () {
             }]],
-            ["onReadable", [\STDIN, function () {
+            ["onReadable", [\fopen(__FILE__, 'r'), function () {
             }]],
             ["onSignal", [\SIGUSR1, function () {
             }]],
