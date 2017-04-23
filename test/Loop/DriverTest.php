@@ -240,7 +240,7 @@ abstract class DriverTest extends TestCase {
             }]],
             ["onWritable", [\STDOUT, function () {
             }]],
-            ["onReadable", [\fopen(__FILE__, 'r'), function () {
+            ["onReadable", [\STDIN, function () {
             }]],
             ["onSignal", [\SIGUSR1, function () {
             }]],
@@ -261,7 +261,7 @@ abstract class DriverTest extends TestCase {
         $this->start(function (Driver $loop) use ($type, $args, &$invoked) {
             if ($type == "onReadable") {
                 $ends = stream_socket_pair(\stripos(PHP_OS, "win") === 0 ? STREAM_PF_INET : STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
-                fwrite($ends[0], "trigger readability watcher");
+                fclose($ends[0]);
                 $args = [$ends[1]];
             } else {
                 array_pop($args);
